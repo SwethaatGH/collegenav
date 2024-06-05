@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>PSG College of Technology Map</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='dash.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+    <!-- Import Leaflet CSS and JavaScript -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.css" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.min.js" crossorigin="anonymous"></script>
+
+    <!-- Set the CSS style for the map container -->
+    <style>
+      #map {
+        height: 500px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a class="logo">Room Booking & Maps</a>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+        {% if user["UserType"] == "User" %}
+        <li><a href="{{ url_for('book_room') }}">Book A Room</a></li>
+        {% elif user["UserType"] == "BlockAdmin" %}
+        <li><a href="#">View Room Requests</a></li>
+        {% elif user["UserType"] == "SuperAdmin" %}
+        <li><a href="{{ url_for('crud_rooms') }}">CRUD Rooms</a></li>
+        <li><a href="{{ url_for('crud_waypoints') }}">CRUD Waypoints</a></li>
+        {% endif %}
+        <li><a>Maps</a></li>
+        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+      </ul>
+    </nav>
+    <br/><br/>
+
+        <div id="map"></div>
+
+        <!-- Define the custom waypoints -->
+        <script>
+          var waypoints = [
+            {% for point in waypoints[:-1] %}
+            {
+              name: '{{point["WaypointID"]}}',
+              latlng: [{{point["latitude"]}}, {{point["longitude"]}}]
+            },
+            {% endfor %}
+            {
+              name: '{{waypoints[-1]["WaypointID"]}}',
+              latlng: [{{waypoints[-1]["latitude"]}}, {{waypoints[-1]["longitude"]}}]
+            }
+          ];
+        </script>
+
+        <!-- Define the Leaflet JavaScript to create the map and add the waypoints -->
+        <script>
+          // Create the Leaflet map centered at PSG College of Technology
+          var map = L.map('map', {
+            center: [11.0239, 77.0025],
+            zoom: 16,
+            layers: [L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                      maxZoom: 19,
+                      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                          '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                          'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                      id: 'mapbox/streets-v11',
+                      tileSize: 512,
+                      zoomOffset: -1
+                  })]
+          });
+
+          // Add the custom waypoints to the map
+          for (var i = 0; i < waypoints.length; i++) {
+            L.marker(waypoints[i].latlng).addTo(map).bindPopup(waypoints[i].name);
+          }
+        </script>
+  </body>
+</html>

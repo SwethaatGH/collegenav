@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>View A Requests</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='dash.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+  </head>
+  <body>
+    <nav class="navbar">
+      <a class="logo">Room Booking & Maps</a>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+        {% if user["UserType"] == "User" %}
+        <li><a>Book A Room</a></li>
+        {% elif user["UserType"] == "BlockAdmin" %}
+        <li><a>View Room Requests</a></li>
+        {% elif user["UserType"] == "SuperAdmin" %}
+        <li><a href="#">CRUD Rooms</a></li>
+        <li><a href="#">CRUD Waypoints</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('maps') }}">Maps</a></li>
+        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+      </ul>
+    </nav>
+    <br/><br/>
+    <div class="form-parent">
+      <div class="formm" style="width:90vw">
+        <h1>View Room Booking Requests</h1>
+        <div class="room-card" style="padding: 75px;width: 80vw;">
+          <h2>Room Bookings</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Room Name</th>
+                  <th>Date</th>
+                  <th>Purpose</th>
+                  <th>Approve</th>
+                  <th>Disapprove</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for booking in user_bookings %}
+                <tr>
+                  <td>{{ booking["RoomID"] }}</td>
+                  <td>{{ booking["datetime"] }}</td>
+                  <td>{{ booking["Purpose"] }}</td>
+                  <td><form method='POST'>
+                    <input type="hidden" name="RoomID" value='{{ booking["RoomID"] }}'>
+                    <input type="hidden" name="datetime" value='{{ booking["datetime"] }}'>
+                    <input type="hidden" name="Purpose" value='{{ booking["Purpose"] }}'>
+                    <input type="hidden" name="UserID" value='{{ booking["User"] }}'>
+                    <input type="submit" name="action" value="Approve"></form></td>
+                  <td><form method='POST'>
+                    <input type="hidden" name="RoomID" value='{{ booking["RoomID"] }}'>
+                    <input type="hidden" name="datetime" value='{{ booking["datetime"] }}'>
+                    <input type="hidden" name="Purpose" value='{{ booking["Purpose"] }}'>
+                    <input type="hidden" name="UserID" value='{{ booking["User"] }}'>
+                    <input type="submit" name="action" value="Disapprove"></form></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+        </div>
+
+      </form>
+    </div>
+  </body>
+</html>

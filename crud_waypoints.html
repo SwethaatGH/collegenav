@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>CRUD Waypoints</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='dash.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+  </head>
+  <body>
+    <nav class="navbar">
+      <a class="logo">Room Booking & Maps</a>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+        <li><a href="{{ url_for('crud_rooms') }}">CRUD Rooms</a></li>
+        <li><a>CRUD Waypoints</a></li>
+        <li><a href="{{ url_for('maps') }}">Maps</a></li>
+        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+      </ul>
+    </nav>
+    <br/><br/>
+    <div class="form-parent">
+      <div class="formm" style="width:90vw">
+        <h1>View Waypoints</h1>
+        <div class="room-card" style="padding: 75px;width: 80vw;height:auto;">
+          <br/>
+          <h2>Waypoints</h2>
+            <table>
+              <thead>
+                <tr>
+                  <th>Waypoint ID</th>
+                  <th>Latitude</th>
+                  <th>Longitude</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for waypoint in waypoints %}
+                <form method="POST">
+                <tr>
+                  <td><input type="text" style="width: 80%!important" name="Waypoint" value="{{ waypoint['WaypointID'] }}"/></td>
+                  <td><input type="text" style="width: 80%!important" name="latitude" value="{{ waypoint['latitude'] }}"/></td>
+                  <td><input type="text" style="width: 80%!important" name="longitude" value="{{ waypoint['longitude'] }}"/></td>
+                  <td>
+                    <input type="submit" name="action" value="Update"></td>
+                </tr>
+                </form>
+                {% endfor %}
+                <form method="POST">
+                <tr>
+                  <td><input type="text" style="width: 80%!important" name="WaypointID"/></td>
+                  <td><input type="text" style="width: 80%!important" name="latitude"/></td>
+                  <td><input type="text" style="width: 80%!important" name="longitude"/></td>
+                  <td>
+                    <input type="submit" name="action" value="Add New Waypoint"></td>
+                </tr>
+                </form>
+              </tbody>
+            </table>
+        </div>
+
+      </form>
+    </div>
+  </body>
+</html>

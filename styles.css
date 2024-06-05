@@ -1,0 +1,212 @@
+/* Import Poppins font from Google Fonts */
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600');
+
+/* Set font family for all elements to Poppins */
+* {
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #1E1E1E;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.form-parent{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  min-width: 90vw;
+  overflow-y: hidden;
+  position: relative;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  background: #1a1a1a;
+  border-radius: 20px;
+  width: 50%;
+  box-shadow: 8px 8px 16px #0d0d0d, -8px -8px 16px #333333;
+}
+
+
+.formm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  background: #1a1a1a;
+  border-radius: 20px;
+  width: 50%;
+  box-shadow: 8px 8px 16px #0d0d0d, -8px -8px 16px #333333;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  background-color: #282828;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 5px 0;
+  width: 100%;
+  color: #ffffff;
+  box-shadow: inset 4px 4px 6px #0d0d0d, inset -4px -4px 6px #333333;
+}
+
+input[type="submit"] {
+  background-color: #6b30ab;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 10px;
+  width: 100%;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 8px 8px 16px #0d0d0d, -8px -8px 16px #333333;
+}
+
+input[type="submit"]:hover {
+  background-color: #501e80;
+  box-shadow: none;
+  transform: translateY(-3px);
+}
+
+input[type="submit"]:active {
+  transform: translateY(3px);
+  box-shadow: inset 4px 4px 6px #0d0d0d, inset -4px -4px 6px #333333;
+}
+
+label {
+  color: #ffffff;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-shadow: 2px 2px #501e80;
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+}
+
+/* Purple outline and glow styles */
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border: 2px solid #6b30ab;
+  box-shadow: 0px 0px 6px #6b30ab;
+}
+
+input[type="submit"]:focus {
+  outline: none;
+  box-shadow: 0px 0px 6px #6b30ab;
+}
+
+select {
+background-color: #282828;
+border: none;
+border-radius: 10px;
+padding: 15px;
+margin: 5px 0;
+width: 100%;
+color: #ffffff;
+box-shadow: inset 4px 4px 6px #0d0d0d, inset -4px -4px 6px #333333;
+}
+
+select:focus {
+outline: none;
+border: 2px solid #6b30ab;
+box-shadow: 0px 0px 6px #6b30ab;
+}
+
+/* Custom arrow icon */
+
+select::-ms-expand {
+display: none;
+}
+
+select::after {
+content: "\25BC";
+position: absolute;
+top: 50%;
+right: 10px;
+transform: translateY(-50%);
+color: #ffffff;
+pointer-events: none;
+}
+
+/* Disabled state */
+
+select:disabled {
+opacity: 0.5;
+cursor: not-allowed;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #1f1f1f;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 10px 20px #0a0a0a, -10px -10px 20px #333333;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: #b08aff;
+  text-shadow: 1px 1px 2px #0c0c0c;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  text-decoration: none;
+  color: white;
+}
+
+.nav-links li {
+  margin: 0 10px;
+}
+
+.nav-links li a {
+  font-size: 20px;
+  color: #fff;
+  text-shadow: 1px 1px 2px #0c0c0c;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #b08aff;
+}
+
+input[type="datetime-local"] {
+  background-color: #282828;
+  border: none;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 5px 0;
+  width: 100%;
+  color: #ffffff;
+  box-shadow: inset 4px 4px 6px #0d0d0d, inset -4px -4px 6px #333333;
+}
+
+input[type="datetime-local"]:focus {
+  outline: none;
+  border: 2px solid #6b30ab;
+  box-shadow: 0px 0px 6px #6b30ab;
+}

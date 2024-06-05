@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='dash.css')}}">
+  </head>
+  <body>
+    <nav class="navbar">
+      <a class="logo">Room Booking & Maps</a>
+      <ul class="nav-links">
+        <li><a>Home</a></li>
+        {% if user["UserType"] == "User" %}
+        <li><a href="{{ url_for('book_room') }}">Book A Room</a></li>
+        {% elif user["UserType"] == "BlockAdmin" %}
+        <li><a href="{{ url_for('view_requests') }}">View Room Requests</a></li>
+        {% elif user["UserType"] == "SuperAdmin" %}
+        <li><a href="{{ url_for('crud_rooms') }}">CRUD Rooms</a></li>
+        <li><a href="{{ url_for('crud_waypoints') }}">CRUD Waypoints</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('maps') }}">Maps</a></li>
+        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+      </ul>
+    </nav>
+    <br/><br/>
+    <div class="form-parent">
+      <form style="width:90vw">
+        <h1>User Dashboard</h1>
+        <div class="room-card" style="padding: 75px;">
+          <label>User ID:</label>
+          <p>{{ user["UserID"] }}</p><br/>
+          <label>Name:</label>
+          <p>{{ user["FName"] }} {{ user["LName"] }}</p><br/>
+          <label>Contact Number:</label>
+          <p>{{ user["Contact"] }}</p><br/>
+          <label>Role in the Organization:</label>
+          <p>{{ user["UserType"] }}</p>
+        </div>
+
+        {% if user["UserType"] == "User" %}
+        <h2>Room Bookings</h2>
+        {% if user_bookings %}
+          <table>
+            <thead>
+              <tr>
+                <th>Room Name</th>
+                <th>Date</th>
+                <th>Purpose</th>
+                <th>Approval Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for booking in user_bookings %}
+              <tr>
+                <td>{{ booking["RoomID"] }}</td>
+                <td>{{ booking["datetime"] }}</td>
+                <td>{{ booking["Purpose"] }}</td>
+                <td>{% if booking["ApprovedBy"] %}Approved{% else %}Pending Approval{% endif %}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% else %}
+          <p> No bookings. </p>
+          {% endif %}
+          <h2>Rooms Available Booking</h2>
+          <div class="room-cards">
+            {% for room in available_rooms %}
+            <div class="room-card">
+              <h3>{{ room["RoomID"] }}</h3>
+              <p>Block: {{ room["BlockID"] }}</p>
+              <p>Nearest Waypoint: {{ room["Waypoint"] }}</p>
+              <p>Manager: {{ room["managerID"] }}</p>
+              <button>Book Now</button>
+            </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </form>
+    </div>
+  </body>
+</html>

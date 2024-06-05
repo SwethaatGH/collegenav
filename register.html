@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Register User</title>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+  </head>
+  <body>
+    <h1 style="color: white;text-align: center;padding-top:50px">PSG College of Technology</h1>
+    <p style="color: white;text-align: center;">Room Booking System and College Map</p>
+    <div class="form-parent">
+      <form method="POST">
+        <label for="username">User ID</label>
+        <input type="text" id="username" name="userID" placeholder="Enter user ID" required><br/>
+
+        <label for="usertype">User Type</label>
+        <select name="userType" id="usertype">
+          <option value="User">User</option>
+          <option value="BlockAdmin">BlockAdmin</option>
+          <option value="SuperAdmin">SuperAdmin</option>
+        </select><br/>
+
+        <label for="firstname">First Name</label>
+        <input type="text" id="firstname" name="firstName" placeholder="Enter first name" required><br/>
+
+        <label for="lastname">Last Name</label>
+        <input type="text" id="lastname" name="lastName" placeholder="Enter last name" required><br/>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter password" required><br/>
+
+        <label for="contact">Contact Number</label>
+        <input type="text" id="contact" name="contact" placeholder="Enter contact number" required><br/>
+
+        <input type="submit" value="Register">
+      </form>
+</div>

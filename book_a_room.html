@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Book A Room</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='dash.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='styles.css')}}">
+  </head>
+  <body>
+    <nav class="navbar">
+      <a class="logo">Room Booking & Maps</a>
+      <ul class="nav-links">
+        <li><a href="{{ url_for('dashboard') }}">Home</a></li>
+        {% if user["UserType"] == "User" %}
+        <li><a>Book A Room</a></li>
+        {% elif user["UserType"] == "BlockAdmin" %}
+        <li><a href="#">View Room Requests</a></li>
+        {% elif user["UserType"] == "SuperAdmin" %}
+        <li><a href="#">CRUD Rooms</a></li>
+        <li><a href="#">CRUD Waypoints</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('maps') }}">Maps</a></li>
+        <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+      </ul>
+    </nav>
+    <br/><br/>
+    <div class="form-parent">
+      <form style="width:90vw" method="POST">
+        <h1>Book A Room</h1>
+        <div class="room-card" style="padding: 75px;">
+          <h2>Room Bookings</h2>
+          {% if user_bookings %}
+            <table>
+              <thead>
+                <tr>
+                  <th>Room Name</th>
+                  <th>Date</th>
+                  <th>Purpose</th>
+                  <th>Approval Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for booking in user_bookings %}
+                <tr>
+                  <td>{{ booking["RoomID"] }}</td>
+                  <td>{{ booking["datetime"] }}</td>
+                  <td>{{ booking["Purpose"] }}</td>
+                  <td>{% if booking["ApprovedBy"] %}Approved{% else %}Pending Approval{% endif %}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% else %}
+            <p> No bookings. </p>
+          {% endif %}
+        </div>
+
+        <label for="roomId">Room ID</label>
+        <select name="roomId" id="roomId">
+          {% for room in available_rooms %}
+            <option value="{{room['RoomID']}}">{{room["RoomID"]}}</option>
+          {% endfor %} 
+        </select><br/>
+
+        <label for="datetime">Date and Time<br/><pre>(This blocks the slot for +-30 minutes. For longer durations, book more slots.)</pre></label>
+        <input type="datetime-local" id="datetime" name="dateTime" placeholder="Enter the date and time the room is needed" required><br/>
+
+        <label for="purpose">Purpose</label>
+        <input type="text" id="purpose" name="purpose" placeholder="Enter the purpose the room is needed" required><br/>
+
+        <input type="submit" value="Request Room">
+
+
+      </form>
+    </div>
+  </body>
+</html>
