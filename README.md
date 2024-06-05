@@ -38,7 +38,8 @@ The following tables are used in the database
 ● Bookings: Contains information about the bookings made for each room.
 
 ### Installation
-To install and run this project, follow these steps
+Clone the project but ensure the following directory structure within your folder: add all HTML files inside a "pages" sub-folder; add all CSS files inside a "static" sub-folder; add rest all files under the main folder itself.
+To run this project, follow these steps
 1. Install the required dependencies using the command ```pip install -r requirements.txt```
 2. Create and populate the SQLite database using the dbOdin.py script. Call the two functions available in the file.
 3. Run the api.py script using the command python api.py
